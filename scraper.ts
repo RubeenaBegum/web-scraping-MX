@@ -69,6 +69,40 @@ async function askQuestion(query: string): Promise<string> {
     console.log('Last 10 books:', JSON.stringify(books, null, 2));
 
 
+
+    
+    //***Optional implementations***//
+
+    const searchString = await askQuestion('Enter a search string: ');
+
+    if (!searchString.trim()) {
+      throw new Error('Search string cannot be empty.');
+    }
+
+    // Perform a search on the website
+    const searchUrl = `http://books.toscrape.com/catalogue/search?q=${encodeURIComponent(searchString)}`;
+    await page.goto(searchUrl);
+
+    // Wait for search results to load
+    await page.waitForSelector('.product_pod');
+
+    // Scrape the search results
+    const searchResults: Book[] = await page.evaluate(() => {
+      const items = Array.from(document.querySelectorAll('.product_pod'));
+      if (items.length === 0) {
+        throw new Error('No results found.');
+      }
+      return items.map(item => ({
+        name: item.querySelector('h3 a')?.textContent?.trim() || '',
+        price: item.querySelector('.price_color')?.textContent?.trim() || '',
+        link: (item.querySelector('h3 a') as HTMLAnchorElement)?.href || '',
+      }));
+    });
+
+    console.log('Search results:', JSON.stringify(searchResults, null, 2));
+
+
+
     await browser.close();
   } catch (error: any) {
     console.error('An error occurred:', error.message);
