@@ -1,6 +1,5 @@
 # web-scraping-MX
 
-
 This script demonstrates web scraping using Playwright in TypeScript to fetch book data from `books.toscrape.com`.
 
 ## Prerequisites
@@ -41,10 +40,37 @@ To run the script, follow these steps:
      ```
 
 2. **Follow the Instructions:**
-   - The script will launch a Chromium browser (visible by default for debugging purposes).
-   - It will fetch and display the last 10 books from `books.toscrape.com`.
+   - The script will prompt you to enter your username and password.
+   - It will then launch a Chromium browser (visible by default for debugging purposes).
+   - If prompted for MFA, complete the MFA process manually and press Enter to continue.
+   - The script will fetch and display the last 10 books from `books.toscrape.com`.
    - You will be prompted to enter a search string (e.g., "fiction", "poetry") to search for books.
    - The script will display the search results based on your input.
+
+## Testing the Script
+
+This project includes unit tests for the helper functions using Jest.
+
+1. **Install Testing Dependencies:**
+   - If not already installed, install Jest and its types:
+     ```bash
+     npm install --save-dev jest @types/jest ts-jest
+     ```
+
+2. **Configure Jest:**
+   - Ensure you have a `jest.config.js` file with the following content:
+     ```javascript
+     module.exports = {
+       preset: 'ts-jest',
+       testEnvironment: 'node',
+     };
+     ```
+
+3. **Run the Tests:**
+   - Execute the following command to run the tests:
+     ```bash
+     npm test
+     ```
 
 ## Additional Information
 
@@ -67,4 +93,4 @@ Contributions are welcome! Feel free to fork the repository and submit pull requ
 
 ## License
 
-<!-- This project is licensed under the [MIT License](LICENSE). -->
+This project is licensed under the [MIT License](LICENSE).

@@ -9,7 +9,7 @@ interface Book {
 }
 
 // Function to ask questions in the terminal
-async function askQuestion(query: string): Promise<string> {
+export async function askQuestion(query: string): Promise<string> {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -50,8 +50,9 @@ async function askQuestion(query: string): Promise<string> {
     await page.fill('#id_login-password', password);
     await page.click('input[name="login_submit"]'); // Adjust selector as necessary
 
-    // Wait for navigation after login
-    await page.waitForNavigation();
+    // Wait for user to complete MFA manually if needed
+    console.log('Please complete MFA if prompted. Press Enter to continue...');
+    await prompt(''); // Wait for user to press Enter after completing MFA
 
     // Navigate to the books page
     await page.goto(booksUrl);
